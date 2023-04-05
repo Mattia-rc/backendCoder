@@ -1,4 +1,4 @@
-class TicketManager {
+/* class TicketManager {
     #gain
     constructor(){
         this.events = []
@@ -35,4 +35,59 @@ console.log(ticket.gain);
 ticket.addEvent({name: "mattia",place:"italia",price:"1000",capacity:null,date: new Date('06/10/2023')})
 ticket.addEvent({name: "pablo",place:"argf",price:"1000",capacity:"2",date: new Date('06/10/2023')})
 ticket.addEvent({name: "facu",place:"españa",price:"1000",capacity:'2',date: new Date('06/10/2023')})
-ticket.getEvents();
+ticket.getEvents(); */
+
+//find para encontrar id especifico
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+class ProductManager{
+    constructor(){
+        this.productos = [];
+    }
+
+        getEvents(){
+             console.log(this.productos) 
+            return this.productos
+
+        }
+
+            getProductByID(){
+                let productoID = 1
+                this.productos.find(p=>p.id === productoID)
+              /*   console.log(this.productos); */
+                return this.productos
+
+            }
+
+    addProducts({title,description, price, thumbnail,stock}){  
+        let id 
+        if(this.productos.length===0){
+            id = 1;
+           
+        }else{
+            let lastProducto = this.productos[this.productos.length-1];
+            lastProducto.id++;
+            id = lastProducto.id+1;
+        }
+        
+     
+
+
+
+
+        let producto = {title,description, price, thumbnail,stock, id};
+        this.productos.push(producto); 
+    }
+}
+
+
+let producto = new ProductManager;
+
+producto.addProducts({title: "iphone", description: "iphone 13 mini", price: 1200, thumbnail:"img", stock: 2});
+producto.addProducts({title: "iphone", description: "iphone 14", price: 1500, thumbnail:"img", stock: 5});
+producto.addProducts({title: "iphone", description: "iphone 12 mini", price: 1000, thumbnail:"img", stock: 4});
+
+producto.getEvents();
+/* producto.getProductByID(); */
