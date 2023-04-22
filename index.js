@@ -37,11 +37,11 @@ class ProductManager {
             this.productos.push(data);
             let data_json = JSON.stringify(this.productos, null, 2);
             fs.writeFileSync(this.path, data_json);
-            console.log('Id creado para el usuario: ' + data.id);
-            return 'Id del usuario creado: ' + data.id;
+            console.log('Id creado para el producto: ' + data.id);
+            return 'Id del producto creado: ' + data.id;
         } catch (error) {
             console.log(error);
-            return 'Error: no se pudo crear el usuario';
+            return 'Error: no se pudo crear el producto';
         }
     }
 
@@ -83,18 +83,7 @@ class ProductManager {
         }
     }
 
-   /*  deleteProduct(id) {
-        try {
-            this.productos = this.productos.filter(each => each.id !== id);
-            let data_json = JSON.stringify(this.productos, null, 2);
-            fs.writeFileSync(this.path, data_json);
-            console.log('Usuario eliminado: ' + id);
-            return 'Usuario eliminado: ' + id;
-        } catch (error) {
-            console.log(error);
-            return 'Error: eliminando usuario';
-        }
-    } */
+   
     deleteProduct(id) {
         try {
           const index = this.productos.findIndex((p) => p.id === id);
