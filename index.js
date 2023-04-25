@@ -1,32 +1,32 @@
 
-const fs = require('fs')
-class ProductManager {
-    constructor(path) {
-        this.productos = [];
-        this.path = path
-        this.init(path)
+const fs = require('fs')            //declaramos fs y lo requerimos
+class ProductManager {              // creamos la estructura del constructor llamado productManager
+    constructor(path) { 
+        this.productos = [];        // declaramos en el constructor el array de peoductos en el cual van a estar dichos productos
+        this.path = path             // ruta donde va a estar la carpeta
+        this.init(path)                //inicializar path
     }
-    init(path) {
-        let file = fs.existsSync(path)
-        if (!file) {
-            fs.writeFileSync(path, '[]')
+    init(path) {                              
+        let file = fs.existsSync(path)          // definimos file y usamos la funcion existsSync para saber si existe
+        if (!file) {                            // si no existe el archivo
+            fs.writeFileSync(path, '[]')        //lo creamos y le declaramos un arreglo vacio
             console.log("archivo creado en: " + path)
             return 'archivo creado en path: ' + this.path
         } else {
-            this.productos = JSON.parse(fs.readFileSync(path, 'UTF-8'))
+            this.productos = JSON.parse(fs.readFileSync(path, 'UTF-8')) //si ya esta creado lo leemos
             console.log('productos cargados')
             return 'productos cargados'
         }
     }
 
-    addProduct({ title, description, price, thumbnail, stock }) {
-        const existingProduct = this.productos.find((p) => p.description === description);
-        if (existingProduct) {
+    addProduct({ title, description, price, thumbnail, stock }) {                           //funcion de agregar productos
+        const existingProduct = this.productos.find((p) => p.description === description);  //delcaramos var para saber si el producto con dicha descripcion ya existe
+        if (existingProduct) {                                                              // si el producto existe
             console.log('Error: el producto ya existe');
             return 'Error: el producto ya existe';
         }
         try {
-            let data = { title, description, price, thumbnail, stock };
+            let data = { title, description, price, thumbnail, stock };                         // declaramos el dato donde se ingresaran los datos que le ingresamos dentro
             if (this.productos.length > 0) {
                 let next_id = this.productos[this.productos.length - 1].id + 1;
                 data.id = next_id;
@@ -34,9 +34,9 @@ class ProductManager {
 
                 data.id = 1;
             }
-            this.productos.push(data);
-            let data_json = JSON.stringify(this.productos, null, 2);
-            fs.writeFileSync(this.path, data_json);
+            this.productos.push(data);                                                          // pusheamos el producto
+            let data_json = JSON.stringify(this.productos, null, 2);                            //pasamos el dato a json
+            fs.writeFileSync(this.path, data_json);     
             console.log('Id creado para el producto: ' + data.id);
             return 'Id del producto creado: ' + data.id;
         } catch (error) {
@@ -45,13 +45,22 @@ class ProductManager {
         }
     }
 
+    
     getProducts() {
-        console.log(this.productos)
-        return this.productos
-    }
+        try {
+          if (this.productos.length === 0) {
+            console.log("Not found");
+          }
+          console.log(this.productos);
+          return this.productos;
+        } catch (error) {
+          console.log(error);
+          return "getProduct: Error";
+        }
+      }
 
-    getProductsById(id) {
-        let productoId = this.productos.find((p) => p.id === id)
+    getProductsById(id) {                                               //funcion de obtener el id solicitdo
+        let productoId = this.productos.find((p) => p.id === id)            
 
         if (!productoId) {
             console.log("no se encontraron productos con ese ID")
