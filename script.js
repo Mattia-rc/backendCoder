@@ -26,6 +26,11 @@ class ProductManager {              // creamos la estructura del constructor lla
             return 'Error: el producto ya existe';
         }
         try {
+            if (!title || !description || !price || !thumbnail || !stock) {
+
+                throw new Error('Todos los campos son obligatorios!!')
+               
+            }
             let data = { title, description, price, thumbnail, stock };                         // declaramos el dato donde se ingresaran los datos que le ingresamos dentro
             if (this.productos.length > 0) {
                 let next_id = this.productos[this.productos.length - 1].id + 1;
@@ -117,15 +122,18 @@ function producto() {
     let producto = new ProductManager('./data/productos.json')
     producto.addProduct({ title: "Iphone", description: "iphone 13 mini", price: 1200, thumbnail: "img", stock: 2 })
     producto.addProduct({ title: "iphone", description: "iphone 12 mini", price: 1000, thumbnail: "img", stock: 4 });
-    producto.addProduct({ title: "iphone", description: "iphone 11 ", price: 2000, thumbnail: "img", stock: 3 });
-
-
-    producto.getProducts();
-    producto.getProductsById(3) 
-    producto.updateProduct(1, { title: 'samsung', description: 'samsung s22 ultra' }) 
-    producto.updateProduct(2, { title: 'samsung', description: 'samsung s21 ' }) 
-    producto.deleteProduct(3) 
-    producto.deleteProduct(1) 
+    producto.addProduct({ title: "iphone", description: "iphone 11 ", price: 2300, thumbnail: "img", stock: 3 });
+    producto.addProduct({ title: "iphone", description: "iphone X ", price: 233, thumbnail: "img", stock: 3 });
+    producto.addProduct({ title: "iphone", description: "iphone XR ", price: 205, thumbnail: "img", stock: 3 });
+    producto.addProduct({ title: "iphone", description: "iphone 8 ", price: 230, thumbnail: "img", stock: 3 });
+    producto.addProduct({ title: "iphone", description: "iphone 7 ", price: 250, thumbnail: "img", stock: 3 });
+    producto.addProduct({ title: "iphone", description: "iphone 6 ", price: 230, thumbnail: "img", stock: 3 });
+    producto.addProduct({ title: "iphone", description: "iphone 6s ", price: 500, thumbnail: "img", stock: 3 });
+    producto.addProduct({ title: "iphone", description: "iphone 8 plus ", price: 200, thumbnail: "img", stock: 3 });
+    producto.getProductsById(9)
+    producto.updateProduct(9, {description: "iphone 14 plus", price: 2000})
+    producto.deleteProduct(10)
+    producto.getProducts()
 }
 
 producto()
